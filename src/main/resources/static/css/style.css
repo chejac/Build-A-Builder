@@ -196,8 +196,7 @@ footer {
   background-color: var(--secondary-bg-color);
 }
 
-#contact,
-.copyright {
+#contact {
   color: var(--primary-text-color);
 }
 
