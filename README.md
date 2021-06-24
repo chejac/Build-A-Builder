@@ -6,14 +6,14 @@
   <ul>
   <li>Frontend</li>
     <ul>
-      <li>HTML/CSS, Bootstrap, Javascript</li>
+      <li>HTML/CSS, Bootstrap, Javascript, JSP</li>
     </ul>
   <li>Backend</li>
     <ul>
       <li>Spring Boot (Spring Data JPA, Spring Security/BCrypt, Spring Validation)</li>
     </ul>
     <ul>
-      <li>Core Java (JSP, Eclipse IDE)</li>
+      <li>Core Java (Eclipse IDE)</li>
     </ul>
   <li>Database</li>
     <ul>
