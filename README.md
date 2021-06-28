@@ -14,7 +14,7 @@
   
 <h3>Challenges</h3>
 <ul>
-  <li>Designing relational database schema</li>
+  <li>Difficulty in designing relational database schema</li>
     <ul><li>Dropped and created database multiple times</li></ul>
   <li>Difficulty with referencing CSS, Javascript, and images when URL was “nested” (e.g., ../product/add)</li>
     <ul><li>Asked fellow peers for help</ul></li>
