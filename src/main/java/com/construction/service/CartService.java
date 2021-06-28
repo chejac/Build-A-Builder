@@ -30,6 +30,13 @@ public class CartService {
 		return cartRepo.findById(id).get();
 	}
 	
+	public void update(Cart cart) {
+		Cart foundCart = cartRepo.findById(cart.getId()).get();
+		foundCart.setCartDetails(cart.getProductDetails());
+		
+		save(foundCart);
+	}
+	
 	public void delete(Cart cart) {
 		cartRepo.delete(cart);
 	}

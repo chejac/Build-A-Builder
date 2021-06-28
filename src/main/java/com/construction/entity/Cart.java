@@ -19,17 +19,17 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(mappedBy = "cart")
+	@OneToOne(mappedBy = "cart", optional = false)
 	private User user;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
-	private Set<CartDetail> cartDetails;
+	private Set<ProductDetail> productDetails;
 	
 	public Cart() {}
 
-	public Cart(User user, Set<CartDetail> cartDetails) {
+	public Cart(User user, Set<ProductDetail> productDetails) {
 		this.user = user;
-		this.cartDetails = cartDetails;
+		this.productDetails = productDetails;
 	}
 
 	public Long getId() {
@@ -48,19 +48,19 @@ public class Cart {
 		this.user = user;
 	}
 
-	public Set<CartDetail> getCartDetails() {
-		return cartDetails;
+	public Set<ProductDetail> getProductDetails() {
+		return productDetails;
 	}
 
-	public void setCartDetails(Set<CartDetail> cartDetails) {
-		this.cartDetails = cartDetails;
+	public void setCartDetails(Set<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cartDetails == null) ? 0 : cartDetails.hashCode());
+		result = prime * result + ((productDetails == null) ? 0 : productDetails.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
@@ -74,10 +74,10 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		if (cartDetails == null) {
-			if (other.cartDetails != null)
+		if (productDetails == null) {
+			if (other.productDetails != null)
 				return false;
-		} else if (!cartDetails.equals(other.cartDetails))
+		} else if (!productDetails.equals(other.productDetails))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -89,7 +89,7 @@ public class Cart {
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", cartDetails=" + cartDetails + "]";
+		return "Cart [id=" + id + ", productDetails=" + productDetails + "]";
 	}
 	
 }

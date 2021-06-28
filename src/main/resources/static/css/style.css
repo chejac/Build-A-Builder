@@ -237,7 +237,8 @@ footer {
 
 /* Admin and Cart: Product bar */
 .product-body,
-.cart-body {
+.cart-body,
+.order-body {
   	background-color: darkgray;
   	border-radius: 1rem;
 }

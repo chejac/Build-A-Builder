@@ -14,6 +14,11 @@ import com.construction.service.OrderService;
 import com.construction.service.ProductService;
 import com.construction.service.ProductTypeService;
 
+/**
+ * Controller for the admin pages
+ * @author Jack Chen
+ *
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -27,6 +32,12 @@ public class AdminController {
 	@Autowired
 	private OrderService orderService;
 	
+	/**
+	 * View all products and orders
+	 * @param model
+	 * @param isUpdated
+	 * @return jsp
+	 */
 	@GetMapping("/")
 	public String adminPrivilege(Model model, 
 			@RequestParam(required = false) String isUpdated) {
@@ -37,6 +48,11 @@ public class AdminController {
 		return "admin/admin_privilege";
 	}
 	
+	/**
+	 * Add new products
+	 * @param model
+	 * @return jsp
+	 */
 	@GetMapping("/product/new")
 	public String addProductForm(Model model) {
 		model.addAttribute("productForm", new Product());
@@ -45,6 +61,11 @@ public class AdminController {
 		return "admin/new_product";
 	}
 	
+	/**
+	 * Add new products to the database
+	 * @param productForm
+	 * @return redirect
+	 */
 	@PostMapping("/product/add")
 	public String addProductForm(@ModelAttribute Product productForm) {
 		productService.save(productForm);
@@ -52,6 +73,12 @@ public class AdminController {
 		return "redirect:/admin/?isUpdated=added";
 	}
 	
+	/**
+	 * Edit the products
+	 * @param model
+	 * @param id
+	 * @return jsp
+	 */
 	@GetMapping("/product/edit")
 	public String editProductForm(Model model, @RequestParam Long id) {
 		model.addAttribute("productForm", productService.getById(id));
@@ -60,6 +87,11 @@ public class AdminController {
 		return "admin/edit_product";
 	}
 	
+	/**
+	 * Add the edited product to the database
+	 * @param productForm
+	 * @return redirect
+	 */
 	@PostMapping("/product/update")
 	public String updateProductForm(@ModelAttribute Product productForm) {
 		productService.update(productForm);
@@ -67,6 +99,11 @@ public class AdminController {
 		return "redirect:/admin/?isUpdated=updated";
 	}
 	
+	/**
+	 * Delete the product
+	 * @param id
+	 * @return redirect
+	 */
 	@GetMapping("/product/delete")
 	public String deleteProductForm(@RequestParam Long id) {
 		productService.deleteById(id);

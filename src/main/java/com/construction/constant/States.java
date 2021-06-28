@@ -3,6 +3,10 @@ package com.construction.constant;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Enum constants for every U.S. states
+ * @author Jack Chen
+ */
 public enum States {
 
 	ALABAMA("Alabama", "AL"), ALASKA("Alaska", "AK"), ARIZONA("Arizona", "AZ"),

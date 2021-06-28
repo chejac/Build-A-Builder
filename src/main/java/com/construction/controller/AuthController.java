@@ -14,6 +14,10 @@ import com.construction.service.SecurityService;
 import com.construction.service.UserService;
 import com.construction.validator.UserValidator;
 
+/**
+ * Controller for the authorization pages
+ * @author Jack Chen
+ */
 @Controller
 public class AuthController {
 	
@@ -31,6 +35,11 @@ public class AuthController {
 		return "index";
 	}
 	
+	/**
+	 * Handle user registration
+	 * @param model
+	 * @return jsp
+	 */
 	@GetMapping("/register")
 	public String register(Model model) {
 		model.addAttribute("userForm", new User());
@@ -39,6 +48,13 @@ public class AuthController {
 		return "auth/register";
 	}
 	
+	/**
+	 * Add user registration to the database
+	 * @param model
+	 * @param userForm
+	 * @param bindingResult
+	 * @return jsp
+	 */
 	@PostMapping("/register")
 	public String register(Model model, @ModelAttribute("userForm") User userForm, 
 			BindingResult bindingResult) {
@@ -56,6 +72,13 @@ public class AuthController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * Handle user login
+	 * @param model
+	 * @param error
+	 * @param logout
+	 * @return jsp
+	 */
 	@GetMapping("/login")
 	public String login(Model model, String error, String logout) {
 		if (error != null) {
@@ -70,6 +93,10 @@ public class AuthController {
 	
 	// PostMapping("/login") handled by Spring Security
 	
+	/**
+	 * Handle access denied
+	 * @return jsp
+	 */
 	@GetMapping("/access_denied")
 	public String accessDenied() {
 		return "error/access_denied";

@@ -38,16 +38,12 @@ public class Product {
 	private ProductType productType;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<CartDetail> cartDetails;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
-	private Set<OrderDetail> orderDetails;
+	private Set<ProductDetail> productDetails;
 	
 	public Product() {}
 	
 	public Product(String name, String description, String image, int totalQuantity, int quantityInStock,
-			double dailyRentalRate, ProductType productType, Set<CartDetail> cartDetails,
-			Set<OrderDetail> orderDetails) {
+			double dailyRentalRate, ProductType productType, Set<ProductDetail> productDetails) {
 		this.name = name;
 		this.description = description;
 		this.image = image;
@@ -55,8 +51,7 @@ public class Product {
 		this.quantityInStock = quantityInStock;
 		this.dailyRentalRate = dailyRentalRate;
 		this.productType = productType;
-		this.cartDetails = cartDetails;
-		this.orderDetails = orderDetails;
+		this.productDetails = productDetails;
 	}
 
 	public Long getId() {
@@ -123,20 +118,12 @@ public class Product {
 		this.productType = productType;
 	}
 
-	public Set<CartDetail> getCartDetails() {
-		return cartDetails;
+	public Set<ProductDetail> getProductDetails() {
+		return productDetails;
 	}
 
-	public void setCartDetails(Set<CartDetail> cartDetails) {
-		this.cartDetails = cartDetails;
-	}
-
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
-	}
-
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setCartDetails(Set<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
 	}
 
 	@Override

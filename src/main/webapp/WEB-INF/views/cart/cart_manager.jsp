@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../include/head.jsp">
@@ -27,9 +28,9 @@
 								<div class="right-column ml-5">
 									<div class="row">
 										<div class="cart-param col-md-4">
-											<p>Daily Rental Rate: $${cartDetail.product.dailyRentalRate} per day</p>
+											<p class="m-0">Daily Rental Rate: <fmt:formatNumber value="${cartDetail.product.dailyRentalRate}" type="currency"/> per day</p>
 										</div>
-										<div class="btn-cart-option col-md-8">
+										<div class="btn-cart-option col-md-8 align-self-center">
 											<input type="number" id="${cartDetail.id}" value="${cartDetail.quantityOrdered}"/>
 											<a onclick="getInputValue(${cartDetail.id})" class="btn btn-primary text-white">Update</a>
 											<a href="/cart/delete?id=${cartDetail.id}" class="btn btn-primary">Delete</a>
@@ -45,19 +46,12 @@
 						<button type="submit" id="btn-submit-order" class="btn btn-primary">Submit Order</button>
 					</div>
 					<!-- Disable submit button when cart is empty -->
-					<c:choose>
-						<c:when test="${empty allCartDetails}">
-							<script type="text/javascript">
-								document.getElementById('empty-cart-header').innerHTML = "Cart is Empty";
-								document.getElementById('btn-submit-order').disabled = true;
-							</script>
-						</c:when>
-						<c:otherwise>
-							<script type="text/javascript">
-								toggleButton("btn-submit-order", false);
-							</script>
-						</c:otherwise>
-					</c:choose>
+					<c:if test="${empty allCartDetails}">
+						<script type="text/javascript">
+							document.getElementById('empty-cart-header').innerHTML = "Cart is Empty";
+							document.getElementById('btn-submit-order').disabled = true;
+						</script>
+					</c:if>
 				</form>
 				<form id="inputValueForm" action="/cart/update">
 					<input type="hidden" id="inputValue" name="inputValue"/>

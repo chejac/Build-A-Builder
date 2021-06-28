@@ -17,6 +17,10 @@ import com.construction.entity.User;
 import com.construction.service.UserService;
 import com.construction.validator.UserValidator;
 
+/**
+ * Controller for the account profile page
+ * @author Jack Chen
+ */
 @Controller
 @RequestMapping("/account")
 public class AccountController {
@@ -27,6 +31,13 @@ public class AccountController {
 	@Autowired
 	private UserValidator userValidator;
 	
+	/**
+	 * Edit the user's account profile
+	 * @param model
+	 * @param principal
+	 * @param isUpdated
+	 * @return jsp
+	 */
 	@GetMapping("/")
 	public String editUserForm(Model model, Principal principal, 
 			@RequestParam(required = false) String isUpdated) {
@@ -38,6 +49,13 @@ public class AccountController {
 		return "user/edit_account";
 	}
 	
+	/**
+	 * Update the user's account profile in the database
+	 * @param model
+	 * @param userForm
+	 * @param bindingResult
+	 * @return jsp
+	 */
 	@PostMapping("/update")
 	public String updateUserForm(Model model, @ModelAttribute("userForm") User userForm,
 			BindingResult bindingResult) {

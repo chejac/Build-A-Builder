@@ -10,8 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order_details")
-public class OrderDetail {
+@Table(name = "product_details")
+public class ProductDetail {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +22,21 @@ public class OrderDetail {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id")
 	private Product product;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
+	private Cart cart;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
 	private Order order;
 	
-	public OrderDetail() {}
+	public ProductDetail() {}
 
-	public OrderDetail(int quantityOrdered, Product product, Order order) {
+	public ProductDetail(int quantityOrdered, Product product, Cart cart, Order order) {
 		this.quantityOrdered = quantityOrdered;
 		this.product = product;
+		this.cart = cart;
 		this.order = order;
 	}
 
@@ -57,6 +62,14 @@ public class OrderDetail {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	public Order getOrder() {
@@ -85,7 +98,7 @@ public class OrderDetail {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		OrderDetail other = (OrderDetail) obj;
+		ProductDetail other = (ProductDetail) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -103,7 +116,8 @@ public class OrderDetail {
 
 	@Override
 	public String toString() {
-		return "OrderDetail [id=" + id + ", quantityOrdered=" + quantityOrdered + ", product=" + product + "]";
+		return "CartDetail [id=" + id + ", quantityOrdered=" + quantityOrdered + ", product="
+				+ product + "]";
 	}
 	
 }

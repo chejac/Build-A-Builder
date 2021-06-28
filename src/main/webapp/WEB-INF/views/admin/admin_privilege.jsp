@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <jsp:include page="../include/head.jsp">
@@ -35,7 +36,7 @@
 								<div class="product-param col-md-4">
 									<p>Total Quantity: ${product.totalQuantity}</p>
 									<p>Quantity In Stock: ${product.quantityInStock}</p>
-									<p>Daily Rental Rate: $${product.dailyRentalRate} per day</p>
+									<p>Daily Rental Rate: <fmt:formatNumber value="${product.dailyRentalRate}" type="currency"/> per day</p>
 								</div>
 								<div class="btn-product-option col-md-8 justify-content-center">
 									<a href="/admin/product/edit?id=${product.id}" class="btn btn-primary">Edit product</a>

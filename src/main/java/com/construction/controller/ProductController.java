@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.construction.entity.Product;
 import com.construction.entity.User;
 import com.construction.exception.ResourceNotFoundException;
+import com.construction.service.ProductDetailService;
 import com.construction.service.ProductService;
 import com.construction.service.UserService;
 
+/**
+ * Controller for the product pages
+ * @author Jack Chen
+ */
 @Controller
 @RequestMapping("/product")
 public class ProductController {
@@ -29,6 +34,15 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private ProductDetailService productDetailService;
+	
+	/**
+	 * View all the products by the product type
+	 * @param model
+	 * @param productType
+	 * @return jsp
+	 */
 	@GetMapping({"/", "/type"})
 	public String productCatalog(Model model, @RequestParam(required = false) String productType) {
 		if (productType == null) productType = "all";
@@ -44,17 +58,30 @@ public class ProductController {
 		return "product/product_catalog";
 	}
 	
+	/**
+	 * Add products to the cart
+	 * @param principal
+	 * @param productId
+	 * @param quantityOrdered
+	 * @return jsp
+	 */
 	@GetMapping("/cart")
 	public String addProductToCart(Principal principal, @RequestParam Long productId, 
 			@RequestParam int quantityOrdered) {
 		if (principal == null) return "redirect:/login";
 		
 		User user = userService.getByUsername(principal.getName());
-		userService.addToCart(user, productId, quantityOrdered);
+		productDetailService.addToCart(user, productId, quantityOrdered);
 		
 		return "redirect:/cart/";
 	}
 	
+	/**
+	 * Search products by name using the search bar
+	 * @param model
+	 * @param productName
+	 * @return jsp
+	 */
 	@GetMapping("/search")
 	public String searchProduct(Model model, @RequestParam String productName) {
 		model.addAttribute("productType", "Searched");
@@ -69,6 +96,10 @@ public class ProductController {
 		return "product/product_catalog";
 	}
 	
+	/**
+	 * Handle ResourceNotFoundException errors by sending to a resource not found page
+	 * @return jsp
+	 */
 	@ExceptionHandler(ResourceNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleResourceNotFoundException() {

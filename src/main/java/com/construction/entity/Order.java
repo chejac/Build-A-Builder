@@ -1,10 +1,9 @@
 package com.construction.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -23,28 +25,34 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(updatable = false)
-	private Timestamp orderDate;
+	@CreationTimestamp
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	private Date orderDate;
 	
-	private Timestamp returnDate;
+	@DateTimeFormat(pattern = "MM-dd-yyyy")
+	private Date returnDate;
 	
 	private String status;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-	private Set<OrderDetail> orderDetails;
+	private double subtotal;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id")
 	private User user;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+	private Set<ProductDetail> productDetails;
+	
 	public Order() {}
 
-	public Order(Timestamp returnDate, String status, User user, Set<OrderDetail> orderDetails) {
-		this();
+	public Order(Date orderDate, Date returnDate, String status, double subtotal, User user,
+			Set<ProductDetail> productDetails) {
+		this.orderDate = orderDate;
 		this.returnDate = returnDate;
 		this.status = status;
+		this.subtotal = subtotal;
 		this.user = user;
-		this.orderDetails = orderDetails;
+		this.productDetails = productDetails;
 	}
 
 	public Long getId() {
@@ -55,19 +63,19 @@ public class Order {
 		this.id = id;
 	}
 
-	public Timestamp getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Timestamp orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
-	public Timestamp getReturnDate() {
+	public Date getReturnDate() {
 		return returnDate;
 	}
 
-	public void setReturnDate(Timestamp returnDate) {
+	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
 	}
 
@@ -79,6 +87,14 @@ public class Order {
 		this.status = status;
 	}
 
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -87,12 +103,12 @@ public class Order {
 		this.user = user;
 	}
 
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
+	public Set<ProductDetail> getProductDetails() {
+		return productDetails;
 	}
 
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
+	public void setProductDetails(Set<ProductDetail> productDetails) {
+		this.productDetails = productDetails;
 	}
 
 	@Override
@@ -101,9 +117,12 @@ public class Order {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((orderDate == null) ? 0 : orderDate.hashCode());
-		result = prime * result + ((orderDetails == null) ? 0 : orderDetails.hashCode());
+		result = prime * result + ((productDetails == null) ? 0 : productDetails.hashCode());
 		result = prime * result + ((returnDate == null) ? 0 : returnDate.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(subtotal);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -126,10 +145,10 @@ public class Order {
 				return false;
 		} else if (!orderDate.equals(other.orderDate))
 			return false;
-		if (orderDetails == null) {
-			if (other.orderDetails != null)
+		if (productDetails == null) {
+			if (other.productDetails != null)
 				return false;
-		} else if (!orderDetails.equals(other.orderDetails))
+		} else if (!productDetails.equals(other.productDetails))
 			return false;
 		if (returnDate == null) {
 			if (other.returnDate != null)
@@ -141,10 +160,7 @@ public class Order {
 				return false;
 		} else if (!status.equals(other.status))
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
+		if (Double.doubleToLongBits(subtotal) != Double.doubleToLongBits(other.subtotal))
 			return false;
 		return true;
 	}
@@ -152,7 +168,7 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", orderDate=" + orderDate + ", returnDate=" + returnDate + ", status=" + status
-				+ ", user=" + user + ", orderDetails=" + orderDetails + "]";
+				+ ", subtotal=" + subtotal + ", productDetails=" + productDetails + "]";
 	}
 	
 }

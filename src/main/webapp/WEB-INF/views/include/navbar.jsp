@@ -21,7 +21,7 @@
 					</sec:authorize>
 					<li class="nav-item"><a class="nav-link" href="/#product">product</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="/manage/">manage</a>
+					<li class="nav-item"><a class="nav-link" href="/order/">order</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="/#about">about</a>
 					</li>
