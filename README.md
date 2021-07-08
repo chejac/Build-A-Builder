@@ -1,4 +1,4 @@
-# Build-A-Builder
+# Rent-A-Builder
 <h3>Project Description</h3>
 <p>A web application for renting construction equipment to allow clients/customers to rent construction equipment (e.g., construction vehicles, generators, light towers, etc.) and manage the inventory of products. The client/customer is able to register for an account, view the catalog of products, add products to cart, submit orders, and etc. The administrator is able to add, delete, and edit products and process new orders.</p>
 
