@@ -5,8 +5,8 @@
 <h3>Tech Stack</h3>
 <ul>
   <li>Frontend: HTML/CSS, Bootstrap, Javascript, JSP</li>
-  <li>Backend: Spring Boot (Spring Data JPA, Spring Security/BCrypt, Spring Validation) & Core Java (Eclipse IDE)</li>
-  <li>Database: MySQL (MariaDB)</li>
+  <li>Backend: Spring Framework (Spring Boot, Spring Data JPA, Spring Security, Spring Validation) & Core Java (Eclipse IDE)</li>
+  <li>Database: MySQL</li>
   <li>Server: Apache Tomcat</li>
   <li>Testing: JUnit Jupiter</li>
   <li>Project Management Tool: Apache Maven</li>
